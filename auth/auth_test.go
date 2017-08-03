@@ -7,13 +7,14 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 )
 
 type Handler func(w http.ResponseWriter, r *http.Request)
 
 func newAuth0ManagerAndServer(handler Handler) (*Auth0Manager, *httptest.Server) {
 	server := httptest.NewServer(http.HandlerFunc(handler))
-	auth0Manager := NewAuth0Manager(server.URL, "", "")
+	auth0Manager := NewAuth0Manager(server.URL, "", "", time.Nanosecond)
 
 	return auth0Manager, server
 }
